@@ -20,4 +20,5 @@ deploy:
     - "release/terraform-inventory_darwin_amd64"
   on:
     repo: jlalande/terraform-inventory
+    tags: true
   skip_cleanup: 'true'
