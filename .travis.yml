@@ -1,33 +1,23 @@
 language: go
-
 env:
 - GO111MODULE=on
-
 go:
-  - "1.8"
-  - "1.11.x"
-  - "1.x" # latest
-
+- '1.8'
+- 1.11.x
+- 1.x
 script:
-  - go test -v ./...
-
-# before we deploy, we go build for all operating systems we would like to support
+- go test -v ./...
 before_deploy:
-  - mkdir -p release
-  - "GOOS=linux  GOARCH=amd64 go build -o release/terraform-inventory_linux_amd64"
-  - "GOOS=darwin GOARCH=amd64 go build -o release/terraform-inventory_darwin_amd64"
-# Windows doesn't work yet, due to the readonly segment
-#  - "GOOS=windows GOARCH=amd64 go build -o release/powerline-go-windows-amd64"
-
+- mkdir -p release
+- GOOS=linux  GOARCH=amd64 go build -o release/terraform-inventory_linux_amd64
+- GOOS=darwin GOARCH=amd64 go build -o release/terraform-inventory_darwin_amd64
 deploy:
   provider: releases
   api_key:
-    secure: $GITHUB_API_KEY
+    secure: N6wJIgf/mZW37RXIy5v+qDtaALLCYVJm94uEt76/wQlYsE20wXOa/piMLqAlPsgzGcA9vsRLy1V9NgeyTnvMwwvKu/p5NfrDlkM+IeCLzi6bsu/dCmADqPJYp//heRAAiwwZl0s+828VR7irkBHCS8kIqxCfBpL2Bn8jwM6XcEzwexrLjn5xVFzs6lEdxtocD347IgGR+LSCw7CqUKWNodyOicYAsPDPKIJZMW2bC9aQLBOQI07j8PRk3afqzt15SmQMnUSOoOM0TRPTN3qS4AnNNKlMuL8JRsRKzWK+3bznDr7fIbflCxoAd6ZvRkOSpBfjQLzTS/wGJ4XzyQXqZd0mUpZ2yd+7uo3aUeZlq973K8YuZl6fhKYm3ruh4nGtKRtdTftoRzjoCkhK6vrWjxgMArxSPtJ0bZTxmuD09BtLTVfNm5Wv/bNRcXxrDoJB95D+rfcXJ2U7a8jlF6WghnB3GcqjWlhbjmO1rJP63YiG56XZbFTiZz9g4wgF701BHxcljpZSCPGMpNYmZmPgw5nd737/hBJ8eRW3nHiyOG0M/Hsyvz7ftIJdDIkGvcxDVdzyuob2sk+Wf0p5Suac/GCRweHlhnuTxTS6KYpbfrOvbaPjs8TbRTZV1OE6ooH4X8IVZwwLhXG1kQcuKzTNy0hn9vaPH97mOsS5/rXJnVc=
   file:
     - "release/terraform-inventory_linux_amd64"
     - "release/terraform-inventory_darwin_amd64"
-# Windows doesn't work yet, due to the readonly segment
-#    - "release/powerline-go-windows-amd64"
-  skip_cleanup: true
   on:
-    tags: true
+    repo: jlalande/terraform-inventory
+  skip_cleanup: 'true'
