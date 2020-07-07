@@ -22,7 +22,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: "$GITHUB_API_KEY"
+    secure: $GITHUB_API_KEY
   file:
     - "release/terraform-inventory_linux_amd64"
     - "release/terraform-inventory_darwin_amd64"
